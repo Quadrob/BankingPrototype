@@ -5,9 +5,13 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.test.bankingPrototype.entities.SavingsAccount;
+import com.test.bankingPrototype.services.SavingsService;
 
 @RestController
 @RequestMapping("/api/savings")
@@ -15,13 +19,14 @@ public class SavingsController {
 
 	static Logger LOG = LoggerFactory.getLogger(SavingsController.class);
 
+	@Autowired
+	SavingsService savingsService;
+
 	@ResponseBody
 	@RequestMapping("")
-	public Map<String, String> savings() {
-		Map<String, String> map = new HashMap<>();
-		map.put("status", "200");
-		map.put("body", "This is the savings controller!");
-		return map;
+	public SavingsAccount savings() {
+		SavingsAccount savingsAccount = savingsService.getSavingsAccount(1000L);
+		return savingsAccount;
 	}
 
 	@ResponseBody
