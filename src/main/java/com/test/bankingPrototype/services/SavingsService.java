@@ -8,6 +8,7 @@ import org.springframework.util.ObjectUtils;
 
 import com.test.bankingPrototype.entities.SavingsAccount;
 import com.test.bankingPrototype.repositories.SavingsRepository;
+import com.test.bankingPrototype.utilities.TransactionHistoryUtil;
 
 @Service
 public class SavingsService {
@@ -16,6 +17,9 @@ public class SavingsService {
 
 	@Autowired
 	SavingsRepository savingsRepository;
+
+	@Autowired
+	TransactionHistoryUtil transactionHistoryUtil;
 
 	public SavingsAccount getSavingsAccountByHolder(Long accountHolderId) {
 		LOG.debug("Fetching Savings Account for Account Holder: '{}'", accountHolderId);
@@ -60,7 +64,15 @@ public class SavingsService {
 			Double newBalance = savingsAccount.getAccountAmount() + dbSavingsAccount.getAccountAmount();
 			dbSavingsAccount.setAccountAmount(newBalance);
 			updatedSavingsAccount = savingsRepository.saveAndFlush(dbSavingsAccount);
-			return updatedSavingsAccount;
+
+			if (ObjectUtils.isEmpty(updatedSavingsAccount)) {
+				return null;
+			} else {
+				transactionHistoryUtil.saveNewTransactionHistoryEntity("Deposit", updatedSavingsAccount.getAccountHolder(),
+								"Savings Account", dbSavingsAccount.getAccountAmount(), newBalance);
+
+				return updatedSavingsAccount;
+			}
 		}
 	}
 
@@ -79,23 +91,19 @@ public class SavingsService {
 			} else {
 				dbSavingsAccount.setAccountAmount(newBalance);
 				updatedSavingsAccount = savingsRepository.saveAndFlush(dbSavingsAccount);
-				return updatedSavingsAccount;
+
+				if (ObjectUtils.isEmpty(updatedSavingsAccount)) {
+					return null;
+				} else {
+					transactionHistoryUtil.saveNewTransactionHistoryEntity("Withdraw", updatedSavingsAccount.getAccountHolder(),
+							"Savings Account", dbSavingsAccount.getAccountAmount(), newBalance);
+					
+					return updatedSavingsAccount;
+				}
 			}
 		}
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
