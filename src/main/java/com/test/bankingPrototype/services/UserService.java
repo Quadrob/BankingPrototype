@@ -30,10 +30,21 @@ public class UserService {
 
 		UserAccount user = userRepository.findByname(userAccount.getName());
 		
-		if (ObjectUtils.isEmpty(user)) {
+		if (ObjectUtils.isEmpty(user) || !(user.getPassword().equals(userAccount.getPassword()))) {
 			return null;
 		} else {
-			return user.getPassword() == userAccount.getPassword() ? user : null;
+			return user;
+		}
+	}
+
+	public UserAccount createUser(UserAccount userAccount) {
+		LOG.debug("Create User Account with Name: '{}'", userAccount.getName());
+		UserAccount newUserAccount = userRepository.saveAndFlush(userAccount);
+		
+		if (ObjectUtils.isEmpty(newUserAccount)) {
+			return null;
+		} else {
+			return newUserAccount;
 		}
 	}
 

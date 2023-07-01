@@ -1,12 +1,12 @@
 package com.test.bankingPrototype.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +24,7 @@ public class SavingsController {
 	SavingsService savingsService;
 
 	@ResponseBody
-	@RequestMapping("/{id}")
+	@GetMapping("/{id}")
 	public SavingsAccount savings(@PathVariable("id") Long id) {
 		SavingsAccount savingsAccount = savingsService.getSavingsAccountByHolder(id);
 		LOG.info("Fetched Savings Account: '{}'", savingsAccount);
@@ -33,28 +33,32 @@ public class SavingsController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/open")
-	public Map<String, String> openSavings() {
-		Map<String, String> map = new HashMap<>();
-		map.put("status", "200");
-		return map;
+	@PostMapping("/withdraw")
+	public SavingsAccount withdrawSavings(@RequestBody SavingsAccount savingsAccount) {
+
+		LOG.info("Fetched Savings Account: '{}'", savingsAccount);
+		return savingsAccount;
 	}
 
-	@ResponseBody
-	@RequestMapping("/withdraw")
-	public Map<String, String> withdrawSavings() {
-		Map<String, String> map = new HashMap<>();
-		map.put("status", "200");
-		return map;
-	}
 
 	@ResponseBody
-	@RequestMapping("/deposit")
-	public Map<String, String> depositSavings() {
-		Map<String, String> map = new HashMap<>();
-		map.put("status", "200");
-	    return map;
+	@PostMapping("/deposit")
+	public SavingsAccount depositSavings(@RequestBody SavingsAccount savingsAccount) {
+		SavingsAccount savings =
+
+		LOG.info("Fetched Savings Account: '{}'", savingsAccount);
+		return savingsAccount;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
 

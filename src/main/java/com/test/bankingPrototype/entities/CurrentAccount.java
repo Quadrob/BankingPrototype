@@ -1,5 +1,6 @@
 package com.test.bankingPrototype.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,8 +14,12 @@ public class CurrentAccount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long accountId;
+
+	@Column(unique = true)
 	private Long accountHolderId;
+
 	private double accountAmount;
+
 
 	public CurrentAccount() {
 

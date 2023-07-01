@@ -1,8 +1,5 @@
 package com.test.bankingPrototype.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,21 +39,27 @@ public class UserController {
 		UserAccount userAcccount = userService.loginUser(user);
 
 		if (ObjectUtils.isEmpty(userAcccount)) {
-			return userAcccount;
+			LOG.error("Failed to Log in with User: '{}'", user.getName());
+			return null;
 		} else {
+			LOG.info("Logging In User: '{}'", userAcccount.getName());
 			return userAcccount;
 		}
 	}
 
 	@ResponseBody
 	@PostMapping("/create")
-	public Map<String, String> create() {
-		Map<String, String> map = new HashMap<>();
-		map.put("status", "200");
-		return map;
+	public UserAccount create(@RequestBody UserAccount user) {
+		UserAccount userAcccount = userService.createUser(user);
+
+		if (ObjectUtils.isEmpty(userAcccount)) {
+			LOG.error("Failed to creatte User: '{}'", user.getName());
+			return null;
+		} else {
+			LOG.info("Created User: '{}'", userAcccount.getName());
+			return userAcccount;
+		}
 	}
 
 }
-
-
 
