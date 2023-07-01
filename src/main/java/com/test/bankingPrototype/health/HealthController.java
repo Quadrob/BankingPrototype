@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class healthCheck {
+public class HealthController {
 
-	static Logger LOG = LoggerFactory.getLogger(healthCheck.class);
+	static Logger LOG = LoggerFactory.getLogger(HealthController.class);
 
 	@ResponseBody
 	@RequestMapping("/health")
