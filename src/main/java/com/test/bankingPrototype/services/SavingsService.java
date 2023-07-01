@@ -29,7 +29,7 @@ public class SavingsService {
 		LOG.debug("Create Savings Account with Name: '{}'", savingsAccount);
 		SavingsAccount newSavingsAccount = null;
 
-		if (savingsAccount.getAccountAmount() > 1000.00) {
+		if (savingsAccount.getAccountAmount() >= 1000.00) {
 			newSavingsAccount = savingsRepository.saveAndFlush(savingsAccount);
 		} else {
 			return null;
@@ -47,7 +47,7 @@ public class SavingsService {
 		SavingsAccount dbSavingsAccount = savingsRepository.findById(savingsAccount.getAccountId()).get();
 		SavingsAccount updatedSavingsAccount = null;
 
-		if (ObjectUtils.isEmpty(dbSavingsAccount) && savingsAccount.getAccountAmount() > 1000.00) {
+		if (ObjectUtils.isEmpty(dbSavingsAccount) && savingsAccount.getAccountAmount() >= 1000.00) {
 			LOG.info("Going to Create Savings Account: '{}'", savingsAccount);
 			updatedSavingsAccount = createSavingsAccount(savingsAccount);
 
@@ -57,9 +57,30 @@ public class SavingsService {
 				return updatedSavingsAccount;
 			}
 		} else {
-			dbSavingsAccount.setAccountAmount(savingsAccount.getAccountAmount());
+			Double newBalance = savingsAccount.getAccountAmount() + dbSavingsAccount.getAccountAmount();
+			dbSavingsAccount.setAccountAmount(newBalance);
 			updatedSavingsAccount = savingsRepository.saveAndFlush(dbSavingsAccount);
 			return updatedSavingsAccount;
+		}
+	}
+
+	public SavingsAccount withdrawSavingsAccount(SavingsAccount savingsAccount) {
+		LOG.debug("Withdraw from Savings Account: '{}'", savingsAccount.getAccountId());
+		SavingsAccount dbSavingsAccount = savingsRepository.findById(savingsAccount.getAccountId()).get();
+		SavingsAccount updatedSavingsAccount = null;
+
+		if (ObjectUtils.isEmpty(dbSavingsAccount) || dbSavingsAccount.getAccountAmount() <= 1000.00) {
+			return null;
+		} else {
+			Double newBalance = dbSavingsAccount.getAccountAmount() - savingsAccount.getAccountAmount();
+
+			if (newBalance <= 1000.00) {
+				return null;
+			} else {
+				dbSavingsAccount.setAccountAmount(newBalance);
+				updatedSavingsAccount = savingsRepository.saveAndFlush(dbSavingsAccount);
+				return updatedSavingsAccount;
+			}
 		}
 	}
 

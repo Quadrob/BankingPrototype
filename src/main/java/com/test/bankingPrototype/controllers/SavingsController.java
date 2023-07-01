@@ -3,6 +3,7 @@ package com.test.bankingPrototype.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,19 +36,29 @@ public class SavingsController {
 	@ResponseBody
 	@PostMapping("/withdraw")
 	public SavingsAccount withdrawSavings(@RequestBody SavingsAccount savingsAccount) {
+		SavingsAccount savings = savingsService.withdrawSavingsAccount(savingsAccount);
 
-		LOG.info("Fetched Savings Account: '{}'", savingsAccount);
-		return savingsAccount;
+		if (ObjectUtils.isEmpty(savings)) {
+			LOG.error("Failed to Deposit for Savings Account: '{}'", savingsAccount);
+			return null;
+		} else {
+			LOG.info("Succesful Deposit for: '{}'", savings.getAccountId());
+			return savings;
+		}
 	}
-
 
 	@ResponseBody
 	@PostMapping("/deposit")
 	public SavingsAccount depositSavings(@RequestBody SavingsAccount savingsAccount) {
-		SavingsAccount savings =
+		SavingsAccount savings = savingsService.depositSavingsAccount(savingsAccount);
 
-		LOG.info("Fetched Savings Account: '{}'", savingsAccount);
-		return savingsAccount;
+		if (ObjectUtils.isEmpty(savings)) {
+			LOG.error("Failed to Deposit for Savings Account: '{}'", savingsAccount);
+			return null;
+		} else {
+			LOG.info("Succesful Deposit for: '{}'", savings.getAccountId());
+			return savings;
+		}
 	}
 
 }
