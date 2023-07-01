@@ -19,6 +19,7 @@ public class HealthController {
 	@RequestMapping("/health")
 	public Map<String, String> health() {
 		// Return map to let user know the service is active
+		LOG.info("Check that the Spring API is Active!");
 		Map<String, String> map = new HashMap<>();
 		map.put("status", "200");
 		map.put("body", "This is a health check response from the Banking Prototyping Project!");

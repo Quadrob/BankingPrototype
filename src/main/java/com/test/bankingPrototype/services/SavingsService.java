@@ -16,8 +16,8 @@ public class SavingsService {
 	@Autowired
 	SavingsRepository savingsRepository;
 
-	public SavingsAccount getSavingsAccount(Long accountHolderId) {
-		LOG.info("Fetching Savings Account for Account Holder: '{}'", accountHolderId);
+	public SavingsAccount getSavingsAccountByHolder(Long accountHolderId) {
+		LOG.debug("Fetching Savings Account for Account Holder: '{}'", accountHolderId);
 		
 		SavingsAccount savings = savingsRepository.findByaccountHolderId(accountHolderId);
 		

@@ -8,4 +8,5 @@ import com.test.bankingPrototype.entities.UserAccount;
 @Repository
 public interface UserRepository extends JpaRepository<UserAccount, Long> {
 
+	UserAccount findByname(String name);
 }

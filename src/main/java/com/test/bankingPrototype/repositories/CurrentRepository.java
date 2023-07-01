@@ -8,4 +8,5 @@ import com.test.bankingPrototype.entities.CurrentAccount;
 @Repository
 public interface CurrentRepository extends JpaRepository<CurrentAccount, Long> {
 
+	CurrentAccount findByaccountHolderId(Long accountHolderId);
 }
