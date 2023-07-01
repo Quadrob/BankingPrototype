@@ -3,9 +3,9 @@ package com.test.bankingPrototype.repositories;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.test.bankingPrototype.entities.SavingsAccount;
+import com.test.bankingPrototype.entities.UserAccount;
 
 @Repository
-public interface SavingsRepository extends CrudRepository<SavingsAccount, Long> {
+public interface UserRepository extends CrudRepository<UserAccount, Long> {
 
 }
