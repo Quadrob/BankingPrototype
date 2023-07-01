@@ -40,12 +40,12 @@ public class SavingsAccount {
 		this.accountId = accountId;
 	}
 
-	public Long getAccountHolder() {
+	public Long getAccountHolderId() {
 		return accountHolderId;
 	}
 
-	public void setAccountHolder(Long accountHolder) {
-		this.accountHolderId = accountHolder;
+	public void setAccountHolderId(Long accountHolderId) {
+		this.accountHolderId = accountHolderId;
 	}
 
 	public double getAccountAmount() {

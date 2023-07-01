@@ -39,10 +39,10 @@ public class SavingsController {
 		SavingsAccount savings = savingsService.withdrawSavingsAccount(savingsAccount);
 
 		if (ObjectUtils.isEmpty(savings)) {
-			LOG.error("Failed to Deposit for Savings Account: '{}'", savingsAccount);
+			LOG.error("Failed to Withdraw from Savings Account: '{}'", savingsAccount.getAccountId());
 			return null;
 		} else {
-			LOG.info("Succesful Deposit for: '{}'", savings.getAccountId());
+			LOG.info("Succesfully Withdrew from Savings Account: '{}'", savings.getAccountId());
 			return savings;
 		}
 	}

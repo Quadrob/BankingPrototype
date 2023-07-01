@@ -1,12 +1,13 @@
 package com.test.bankingPrototype.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class CurrentController {
 	CurrentService currentService;
 
 	@ResponseBody
-	@RequestMapping("/{id}")
+	@GetMapping("/{id}")
 	public CurrentAccount current(@PathVariable("id") Long id) {
 		CurrentAccount currentAccount = currentService.getCurrentAccountByHolder(id);
 		LOG.info("Fetched Curreent Account: '{}'", currentAccount);
@@ -33,29 +34,57 @@ public class CurrentController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/open")
-	public Map<String, String> openCurrent() {
-		Map<String, String> map = new HashMap<>();
-		map.put("status", "200");
-		return map;
+	@PostMapping("/open")
+	public CurrentAccount openCurrent(@RequestBody CurrentAccount currentAccount) {
+		currentAccount.setAccountAmount(0);
+		currentAccount.setAccountOverdraftAmount(0);
+		CurrentAccount current = currentService.createCurrentAccount(currentAccount);
+
+		if (ObjectUtils.isEmpty(current)) {
+			LOG.error("Failed to Create Current Account: '{}'", currentAccount);
+			return null;
+		} else {
+			LOG.info("Succesfully Created Current Account: '{}'", current.getAccountId());
+			return current;
+		}
+
 	}
 
 	@ResponseBody
-	@RequestMapping("/withdraw")
-	public Map<String, String> withdrawCurrent() {
-		Map<String, String> map = new HashMap<>();
-		map.put("status", "200");
-		return map;
+	@PostMapping("/withdraw")
+	public CurrentAccount withdrawCurrent(@RequestBody CurrentAccount currentAccount) {
+		CurrentAccount current = currentService.withdrawCurrentAccount(currentAccount);
+
+		if (ObjectUtils.isEmpty(current)) {
+			LOG.error("Failed to Withdraw from Current Account: '{}'", currentAccount.getAccountId());
+			return null;
+		} else {
+			LOG.info("Succesfully Withdrew from Current Account: '{}'", current.getAccountId());
+			return current;
+		}
+
 	}
 
 	@ResponseBody
-	@RequestMapping("/deposit")
-	public Map<String, String> depositCurrent() {
-		Map<String, String> map = new HashMap<>();
-		map.put("status", "200");
-	    return map;
+	@PostMapping("/deposit")
+	public CurrentAccount depositCurrent(@RequestBody CurrentAccount currentAccount) {
+		CurrentAccount current = currentService.depositCurrentAccount(currentAccount);
+
+		if (ObjectUtils.isEmpty(current)) {
+			LOG.error("Failed to Deposit to Current Account: '{}'", currentAccount.getAccountId());
+			return null;
+		} else {
+			LOG.info("Succesful Deposit for Current Account: '{}'", current.getAccountId());
+			return current;
+		}
+
 	}
 
 }
+
+
+
+
+
 
 

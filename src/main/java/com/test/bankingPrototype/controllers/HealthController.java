@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ public class HealthController {
 	static Logger LOG = LoggerFactory.getLogger(HealthController.class);
 
 	@ResponseBody
-	@RequestMapping("/health")
+	@GetMapping("/health")
 	public Map<String, String> health() {
 		// Return map to let user know the service is active
 		LOG.info("Check that the Spring API is Active!");
@@ -27,7 +28,7 @@ public class HealthController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/logging")
+	@GetMapping("/logging")
 	public Map<String, String> logging() {
 		// Test logging functionality
 		LOG.trace("A TRACE Message from the Health Endpoint");

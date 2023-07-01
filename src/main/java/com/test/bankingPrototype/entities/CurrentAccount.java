@@ -19,6 +19,7 @@ public class CurrentAccount {
 	private Long accountHolderId;
 
 	private double accountAmount;
+	private double accountOverdraftAmount;
 
 
 	public CurrentAccount() {
@@ -40,20 +41,28 @@ public class CurrentAccount {
 		this.accountId = accountId;
 	}
 
-	public Long getAccountHolder() {
-		return accountHolderId;
-	}
-
-	public void setAccountHolder(Long accountHolder) {
-		this.accountHolderId = accountHolder;
-	}
-
 	public double getAccountAmount() {
 		return accountAmount;
 	}
 
 	public void setAccountAmount(double accountAmount) {
 		this.accountAmount = accountAmount;
+	}
+
+	public Long getAccountHolderId() {
+		return accountHolderId;
+	}
+
+	public void setAccountHolderId(Long accountHolderId) {
+		this.accountHolderId = accountHolderId;
+	}
+
+	public double getAccountOverdraftAmount() {
+		return accountOverdraftAmount;
+	}
+
+	public void setAccountOverdraftAmount(double accountOverdraftAmount) {
+		this.accountOverdraftAmount = accountOverdraftAmount;
 	}
 
 }

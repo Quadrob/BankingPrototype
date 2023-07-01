@@ -68,7 +68,7 @@ public class SavingsService {
 			if (ObjectUtils.isEmpty(updatedSavingsAccount)) {
 				return null;
 			} else {
-				transactionHistoryUtil.saveNewTransactionHistoryEntity("Deposit", updatedSavingsAccount.getAccountHolder(),
+				transactionHistoryUtil.saveNewTransactionHistoryEntity("Deposit", updatedSavingsAccount.getAccountHolderId(),
 								"Savings Account", dbSavingsAccount.getAccountAmount(), newBalance);
 
 				return updatedSavingsAccount;
@@ -95,7 +95,7 @@ public class SavingsService {
 				if (ObjectUtils.isEmpty(updatedSavingsAccount)) {
 					return null;
 				} else {
-					transactionHistoryUtil.saveNewTransactionHistoryEntity("Withdraw", updatedSavingsAccount.getAccountHolder(),
+					transactionHistoryUtil.saveNewTransactionHistoryEntity("Withdraw", updatedSavingsAccount.getAccountHolderId(),
 							"Savings Account", dbSavingsAccount.getAccountAmount(), newBalance);
 					
 					return updatedSavingsAccount;
@@ -105,5 +105,14 @@ public class SavingsService {
 	}
 
 }
+
+
+
+
+
+
+
+
+
 
 
