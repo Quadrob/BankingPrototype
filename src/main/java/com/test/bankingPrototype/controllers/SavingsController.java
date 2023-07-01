@@ -1,4 +1,4 @@
-package com.test.bankingPrototype.savings.controller;
+package com.test.bankingPrototype.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
