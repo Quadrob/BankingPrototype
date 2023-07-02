@@ -47,8 +47,8 @@ public class SavingsService {
 	}
 
 	public SavingsAccount depositSavingsAccount(SavingsAccount savingsAccount) {
-		LOG.debug("Deposit into Savings Account: '{}'", savingsAccount.getAccountId());
-		SavingsAccount dbSavingsAccount = savingsRepository.findById(savingsAccount.getAccountId()).get();
+		LOG.debug("Deposit into Savings Account: '{}'", savingsAccount);
+		SavingsAccount dbSavingsAccount = savingsRepository.findByaccountHolderId(savingsAccount.getAccountHolderId());
 		SavingsAccount updatedSavingsAccount = null;
 
 		if (ObjectUtils.isEmpty(dbSavingsAccount) && savingsAccount.getAccountAmount() >= 1000.00) {
@@ -60,8 +60,12 @@ public class SavingsService {
 			} else {
 				return updatedSavingsAccount;
 			}
+		} else if (ObjectUtils.isEmpty(dbSavingsAccount) && savingsAccount.getAccountAmount() < 1000.00) {
+			LOG.error("Cannot Create Savings Account: '{}'", savingsAccount);
+			return null;
 		} else {
-			Double newBalance = savingsAccount.getAccountAmount() + dbSavingsAccount.getAccountAmount();
+			Double oldBalance = dbSavingsAccount.getAccountAmount();
+			Double newBalance = oldBalance + savingsAccount.getAccountAmount();
 			dbSavingsAccount.setAccountAmount(newBalance);
 			updatedSavingsAccount = savingsRepository.saveAndFlush(dbSavingsAccount);
 
@@ -69,7 +73,7 @@ public class SavingsService {
 				return null;
 			} else {
 				transactionHistoryUtil.saveNewTransactionHistoryEntity("Deposit", updatedSavingsAccount.getAccountHolderId(),
-								"Savings Account", dbSavingsAccount.getAccountAmount(), newBalance);
+						"Savings Account", oldBalance, newBalance);
 
 				return updatedSavingsAccount;
 			}
@@ -77,16 +81,17 @@ public class SavingsService {
 	}
 
 	public SavingsAccount withdrawSavingsAccount(SavingsAccount savingsAccount) {
-		LOG.debug("Withdraw from Savings Account: '{}'", savingsAccount.getAccountId());
-		SavingsAccount dbSavingsAccount = savingsRepository.findById(savingsAccount.getAccountId()).get();
+		LOG.debug("Withdraw from Savings Account: '{}'", savingsAccount);
+		SavingsAccount dbSavingsAccount = savingsRepository.findByaccountHolderId(savingsAccount.getAccountHolderId());
 		SavingsAccount updatedSavingsAccount = null;
 
 		if (ObjectUtils.isEmpty(dbSavingsAccount) || dbSavingsAccount.getAccountAmount() <= 1000.00) {
 			return null;
 		} else {
-			Double newBalance = dbSavingsAccount.getAccountAmount() - savingsAccount.getAccountAmount();
+			Double oldBalance = dbSavingsAccount.getAccountAmount();
+			Double newBalance = oldBalance - savingsAccount.getAccountAmount();
 
-			if (newBalance <= 1000.00) {
+			if (newBalance < 1000.00) {
 				return null;
 			} else {
 				dbSavingsAccount.setAccountAmount(newBalance);
@@ -96,7 +101,7 @@ public class SavingsService {
 					return null;
 				} else {
 					transactionHistoryUtil.saveNewTransactionHistoryEntity("Withdraw", updatedSavingsAccount.getAccountHolderId(),
-							"Savings Account", dbSavingsAccount.getAccountAmount(), newBalance);
+							"Savings Account", oldBalance, newBalance);
 					
 					return updatedSavingsAccount;
 				}

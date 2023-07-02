@@ -41,8 +41,8 @@ public class CurrentService {
 	}
 
 	public CurrentAccount depositCurrentAccount(CurrentAccount currentAccount) {
-		LOG.debug("Deposit into Current Account: '{}'", currentAccount.getAccountId());
-		CurrentAccount dbCurrentAccount = currentRepository.findById(currentAccount.getAccountId()).get();
+		LOG.debug("Deposit into Current Account: '{}'", currentAccount);
+		CurrentAccount dbCurrentAccount = currentRepository.findByaccountHolderId(currentAccount.getAccountHolderId());
 		CurrentAccount updatedCurrentAccount = null;
 
 		if (ObjectUtils.isEmpty(dbCurrentAccount)) {
@@ -55,7 +55,8 @@ public class CurrentService {
 				return updatedCurrentAccount;
 			}
 		} else {
-			Double newBalance = dbCurrentAccount.getAccountAmount() + currentAccount.getAccountAmount();
+			Double oldBalance = dbCurrentAccount.getAccountAmount();
+			Double newBalance = oldBalance + currentAccount.getAccountAmount();
 			dbCurrentAccount.setAccountAmount(newBalance);
 			updatedCurrentAccount = currentRepository.saveAndFlush(dbCurrentAccount);
 
@@ -64,7 +65,7 @@ public class CurrentService {
 			} else {
 				transactionHistoryUtil.saveNewTransactionHistoryEntity("Deposit",
 						updatedCurrentAccount.getAccountHolderId(), "Current Account",
-						dbCurrentAccount.getAccountAmount(), newBalance);
+						oldBalance, newBalance);
 
 				return updatedCurrentAccount;
 			}
@@ -72,15 +73,16 @@ public class CurrentService {
 	}
 
 	public CurrentAccount withdrawCurrentAccount(CurrentAccount currentAccount) {
-		LOG.debug("Withdraw from Current Account: '{}'", currentAccount.getAccountId());
-		CurrentAccount dbCurrentAccount = currentRepository.findById(currentAccount.getAccountId()).get();
+		LOG.debug("Withdraw from Current Account: '{}'", currentAccount);
+		CurrentAccount dbCurrentAccount = currentRepository.findByaccountHolderId(currentAccount.getAccountHolderId());
 		CurrentAccount updatedCurrentAccount = null;
 		double overdraftLimit = 100000.00;
 
 		if (ObjectUtils.isEmpty(dbCurrentAccount)) {
 			return null;
 		} else {
-			Double newOverdraftBalance = dbCurrentAccount.getAccountOverdraftAmount() + currentAccount.getAccountAmount();
+			Double oldOverdraftBalance = dbCurrentAccount.getAccountOverdraftAmount();
+			Double newOverdraftBalance = oldOverdraftBalance + currentAccount.getAccountOverdraftAmount();
 
 			if (newOverdraftBalance > (dbCurrentAccount.getAccountAmount() + overdraftLimit)) {
 				return null;
@@ -93,7 +95,7 @@ public class CurrentService {
 				} else {
 					transactionHistoryUtil.saveNewTransactionHistoryEntity("Withdraw",
 							updatedCurrentAccount.getAccountHolderId(), "Current Account",
-							dbCurrentAccount.getAccountOverdraftAmount(), newOverdraftBalance);
+							oldOverdraftBalance, newOverdraftBalance);
 
 					return updatedCurrentAccount;
 				}
