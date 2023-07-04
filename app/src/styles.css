@@ -1,2 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+.container {
+  font-family: arial;
+  font-size: 16px;
+  margin: auto;
+  width: 250px;
+  text-align: center;
+  align-content: center;
+}
+
+button {
+  margin: 10px;
+}
+
+h3 {
+  font-family: arial;
+  font-size: 24px;
+  text-align: center;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

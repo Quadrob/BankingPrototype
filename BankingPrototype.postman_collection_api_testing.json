@@ -1,0 +1,302 @@
+{
+	"info": {
+		"_postman_id": "6d1ea60d-8060-4248-9d6b-050024969200",
+		"name": "BankingPrototype",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28286127"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8994/api/user/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"roz\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8994/api/user/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8994",
+					"path": [
+						"api",
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8994/api/user/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"roz\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8994/api/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8994",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8994/api/health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8994/api/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8994",
+					"path": [
+						"api",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8994/api/logging",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8994/api/logging",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8994",
+					"path": [
+						"api",
+						"logging"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8994/api/savings/deposit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountHolderId\": \"1\",\r\n    \"accountAmount\": \"1000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8994/api/savings/deposit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8994",
+					"path": [
+						"api",
+						"savings",
+						"deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8994/api/savings/withdraw",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountHolderId\": \"1\",\r\n    \"accountAmount\": \"1000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8994/api/savings/withdraw",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8994",
+					"path": [
+						"api",
+						"savings",
+						"withdraw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8994/api/savings/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8994/api/savings/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8994",
+					"path": [
+						"api",
+						"savings",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8994/api/current/open",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountHolderId\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8994/api/current/open",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8994",
+					"path": [
+						"api",
+						"current",
+						"open"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8994/api/current/deposit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountHolderId\": \"1\",\r\n    \"accountAmount\": \"1000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8994/api/current/deposit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8994",
+					"path": [
+						"api",
+						"current",
+						"deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8994/api/current/withdraw",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountHolderId\": \"1\",\r\n    \"accountOverdraftAmount\": \"1000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8994/api/current/withdraw",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8994",
+					"path": [
+						"api",
+						"current",
+						"withdraw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8994/api/current/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8994/api/current/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8994",
+					"path": [
+						"api",
+						"current",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

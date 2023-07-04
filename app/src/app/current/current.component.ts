@@ -5,10 +5,9 @@ import { LoginService } from '../services/login.service';
 @Component({
   selector: 'app-current',
   templateUrl: './current.component.html',
-  styleUrls: ['./current.component.css']
+  styleUrls: ['./current.component.css'],
 })
 export class CurrentComponent {
-
   constructor(public loginService: LoginService, public router: Router) {
     if (this.loginService.currentUser === undefined) {
       this.router.navigate(['/login']);
@@ -30,6 +29,4 @@ export class CurrentComponent {
   menu() {
     this.router.navigate(['/menu']);
   }
-
-
 }

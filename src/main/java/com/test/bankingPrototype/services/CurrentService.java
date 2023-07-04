@@ -81,10 +81,10 @@ public class CurrentService {
 		if (ObjectUtils.isEmpty(dbCurrentAccount)) {
 			return null;
 		} else {
-			Double oldOverdraftBalance = dbCurrentAccount.getAccountOverdraftAmount();
-			Double newOverdraftBalance = oldOverdraftBalance + currentAccount.getAccountOverdraftAmount();
+			Double oldOverdraftBalance = (dbCurrentAccount.getAccountOverdraftAmount() * -1);
+			Double newOverdraftBalance = (oldOverdraftBalance * -1) - (currentAccount.getAccountOverdraftAmount() * -1);
 
-			if (newOverdraftBalance > (dbCurrentAccount.getAccountAmount() + overdraftLimit)) {
+			if (Math.abs(newOverdraftBalance) > (dbCurrentAccount.getAccountAmount() + overdraftLimit)) {
 				return null;
 			} else {
 				dbCurrentAccount.setAccountOverdraftAmount(newOverdraftBalance);

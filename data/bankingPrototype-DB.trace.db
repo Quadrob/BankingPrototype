@@ -1,0 +1,6 @@
+2023-07-04 18:21:24 jdbc[33]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'' (BANK_USERS: ""ACCOUNT_ID"" BIGINT NOT NULL)"; SQL statement:
+INSERT INTO "PUBLIC"."BANK_USERS"("ACCOUNT_ID","NAME","PASSWORD")VALUES(?,?,?) [22018-214]
+2023-07-04 18:21:24 jdbc[33]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'' (BANK_USERS: ""ACCOUNT_ID"" BIGINT NOT NULL)"; SQL statement:
+INSERT INTO "PUBLIC"."BANK_USERS"("ACCOUNT_ID","NAME","PASSWORD")VALUES(?,?,?) [22018-214]

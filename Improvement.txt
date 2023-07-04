@@ -1,0 +1,7 @@
+Endpoint Response handling - improve response objectEndpoint Error handling - send actual errorsImprove endpoint security eg jwt 
+Add password encoding
+Version my endpoints
+Add file logging not just console
+Add JSON validation for endpoints
+Add endpoint documentation 
+Improve Health endpoints to get better infoUse proper types in the frontendAdd autth guard for url'sObviously the frontend could use an overhaul to make it look better

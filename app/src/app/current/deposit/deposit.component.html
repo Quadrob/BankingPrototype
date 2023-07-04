@@ -1,1 +1,32 @@
-<p>deposit works!</p>
+<h3>Current Account Deposit</h3>
+
+<div class="container">
+  <table>
+    <tr>
+      <th>Account</th>
+      <th>Balance</th>
+      <th>Overdraft</th>
+    </tr>
+    <tr>
+      <td>{{ account }}</td>
+      <td>{{ balance }}</td>
+      <td>-{{ overdraft }}</td>
+    </tr>
+  </table>
+
+  <form class="exampl-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Deposit Amount</mat-label>
+      <input matInput placeholder="Enter your name" name="usename" [(ngModel)]="amount">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="submit()">Deposit</button>
+    <br>
+    <br>
+    <span *ngIf="show" style="color: green;">Successful Deposit!</span>
+    <span *ngIf="fail" style="color: red;">Failed to Deposit {{ amount }}!</span>
+    <hr>
+    <button mat-raised-button color="primary" (click)="menu()">Current Menu</button>
+  </form>
+
+</div>
